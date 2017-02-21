@@ -36,6 +36,17 @@ export class StoreService {
 			.catch(this.handleError);
 	}
 
+	updateStore(Store: Store): Promise<void> {
+		const url = `${this.StoreUrl}/update`;
+		return this.http.put(url, JSON.stringify(Store), { headers: this.headers })
+			.toPromise()
+			.then(res => {
+				console.log(res);
+				res.json() as Store
+			})
+			.catch(this.handleError);
+	}
+
 
 	private handleError(error: any): Promise<any> {
 		console.error('An error occurred', error); // for demo purposes only

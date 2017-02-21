@@ -20,14 +20,48 @@ export class StoreDetailComponent implements OnInit {
 	getImg = false;
   imguploader = false;
 	imgurl = 'http://52.175.147.246:3002/api/imgs/';
+  imgs: string;
+  getData = false;
 
 	uploadFile() {
 		this.uploader.uploadAll();
     this.imguploader = false; // 업로드 시작
 	}
 
+  imgUpdate() {
+    let img = this.imgs;
+    console.log(img, this.model.imgs);
+    if(img == this.model.imgs) { console.log("같음") }
+    if(img !== this.model.imgs) {
+      this.StoreService.updateStore(this.model)
+        .then(() => {
+          console.log(this.model);
+        });
+    }
+  }
+
+  update() {
+    this.getData = true;
+  }
+
+  updatecancel() {
+    this.getData = false;
+  }
+
+  updateStore(): void {
+		this.StoreService.updateStore(this.model)
+			.then(() => {
+				this.getData = false;
+        console.log("성공");
+			}).catch(() => console.log("실패"))
+	}
+
   addimgs() {
     this.imguploader = true;
+  }
+
+  test() {
+    console.log(this.model);
   }
 
   constructor(
@@ -57,6 +91,7 @@ export class StoreDetailComponent implements OnInit {
     this.StoreService.getStore(id)
       .then(results => {
         this.model = results;
+        this.imgs = results.imgs;
         console.log(this.model);
       })
   }
@@ -68,6 +103,7 @@ export class StoreDetailComponent implements OnInit {
 			this.imgurl = this.imgurl + this.uploadResult.response;
 			this.getImg = true;
 			this.model.imgs = this.uploadResult.response;
+      this.imgUpdate();
 		} else {
 			console.log('실패');
 		}

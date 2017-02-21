@@ -1,42 +1,100 @@
+<button class="btn btn-primary" routerLinkActive="active" [routerLink]="['/store/list']">리스트 보기</button>
 <div class="card">
   <div class="card-header">
-    <h3>{{model.name}}</h3>
+    {{model.name}}
+    <label *ngIf="!getData" class="btn-right mb-0">
+      <button (click)="update()" class="btn btn-sm btn-primary">수정 하기</button>
+    </label>
+    <label *ngIf="getData" class="btn-right mb-0">
+      <button (click)="updatecancel()" class="btn btn-sm btn-warning">취소</button>
+    </label>
+     
   </div>
   <div class="card-block">
     <div class="row">
-      <div class="col-md-3 test">
-        <img class="img-responsive" width="100%" src="{{imgurl}}">
+      <div class="col-md-3">
+        <img *ngIf="!imguploader" class="img-responsive" width="100%" src="http://52.175.147.246:3002/api/imgs/{{model.imgs}}">
         <div *ngIf="imguploader">
+          <img class="img-responsive" width="100%" src="{{imgurl}}">
           <input type="file" name="img-upload" ng2FileSelect [uploader]="uploader" />
         </div>
         <button *ngIf="!imguploader" class="btn btn-primary" (click)="addimgs()">사진 등록하기</button>
-        <button *ngIf="imguploader" class="btn btn-primary" (click)="uploadFile()">사진 등록하기</button>
+        <button *ngIf="imguploader" class="btn btn-primary" (click)="uploadFile()">사진 업로드</button>
       </div>
-      <div class="col-md-9 test">
-        <div class="body">
+      <div class="col-md-9">
+        <div *ngIf="!getData">
           <h3>주소: {{model.addr}}</h3>
           <h3>전화번호 :{{model.tel}}</h3>
           <h3>카테고리: {{model.category}}</h3>
-          <h3>평일 {{model.openTime}}~{{model.closeTime}} 주말 {{model.weekendOpen}}~{{model.weekendClose}}</h3>
+          <h3>평일 {{model.openTime}}~{{model.closeTime}} // 주말 {{model.weekendOpen}}~{{model.weekendClose}}</h3>
           <h3>쿠폰 : {{model.couponAmount}}</h3>
-          <h3></h3>
+        </div>
+        <div *ngIf="getData">
+          <form name="form" (ngSubmit)="updateStore()" #f="ngForm" novalidate>
+            <div class="form-group">
+              <label for="addr">주소</label>
+              <input type="text" class="form-control" name="addr" [(ngModel)]="model.addr" placeholder="주소" #addr="ngModel" />
+            </div>
+            <div class="form-group">
+              <label for="tel">전화번호</label>
+              <input type="text" class="form-control" name="tel" [(ngModel)]="model.tel" placeholder="전화번호" #title="ngModel" [max]="11" />
+            </div>
+            <div class="form-group">
+              <label for="category">카테고리</label>
+              <input type="text" class="form-control" name="category" [(ngModel)]="model.category" placeholder="카테고리" #category="ngModel" />
+            </div>
+            <div class="form-group row">
+              <div class="form-group col-md-3">
+                <label for="time">평일 여는시간</label>
+                <input type="text" class="form-control" name="openTime" [(ngModel)]="model.openTime" placeholder="ex)08:00" #openTime="ngModel" />
+              </div>
+              <div class="form-group col-md-3">
+                <label for="time">평일 닫는시간</label>
+                <input type="text" class="form-control" name="closeTime" [(ngModel)]="model.closeTime" placeholder="ex)24:00" #closeTime="ngModel" />
+              </div>
+              <div class="form-group col-md-3">
+                <label for="time">주말 여는시간</label>
+                <input type="text" class="form-control" name="weekendOpen" [(ngModel)]="model.weekendOpen" placeholder="ex)08:00" #weekendOpen="ngModel" />
+              </div>
+              <div class="form-group col-md-3">
+                <label for="time">주말 닫는시간</label>
+                <input type="text" class="form-control" name="weekendClose" [(ngModel)]="model.weekendClose" placeholder="ex)24:00" #weekendClose="ngModel" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="form-group col-md-6">
+                <label for="coupon">쿠폰이름</label>
+                <input type="text" class="form-control" name="couponName" [(ngModel)]="model.couponName" placeholder="쿠폰이름" #couponName="ngModel" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="coupon">쿠폰이름</label>
+                <input type="text" class="form-control" name="couponAmount" [(ngModel)]="model.couponAmount" placeholder="ex)1000" #couponAmount="ngModel" />
+              </div>
+            </div>
+            <div class="form-group">
+              <p><button [disabled]="loading" class="btn btn-primary btn-sm" (click)="test()">수정</button></p>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-    <div class="row test">
-      <div class="col-md-12 reply">
-        메뉴관리 - 여기부터 탭으로 하는게 깔끔하고 사용이 편리할 것 같음. 메뉴 이미지수정도 가능하도록(2개를 분리시켜야 편할지도)
-      </div>
-    </div>
-    <div class="row test">
-      <div class="col-md-12 map">
-        지도-구글지도 api받아와서 현재 위치 보여주기....(이건 컴에서 어케 쓰는거지? 대략적 위치??)
-      </div>
-    </div>
-    <div class="row test">
-      <div class="col-md-12 reply">
-        리뷰 댓글 (약 20개단위로 끊어서 보여주기)
-      </div>
-    </div>
+    <tabset>
+      <tab heading="메뉴관리">
+        <div class="col-md-12">
+          메뉴관리 - 여기부터 탭으로 하는게 깔끔하고 사용이 편리할 것 같음. 메뉴 이미지수정도 가능하도록(2개를 분리시켜야 편할지도)
+        </div>
+        <!--<app-sentence-table [step]="0"></app-sentence-table>-->
+      </tab>
+      <tab heading="지도">
+        <div class="col-md-12">
+          지도-구글지도 api받아와서 현재 위치 보여주기....(이건 컴에서 어케 쓰는거지? 대략적 위치??)
+        </div>
+      </tab>
+      <tab heading="댓글">
+        <div class="col-md-12">
+          리뷰 댓글 (약 20개단위로 끊어서 보여주기)
+        </div>
+      </tab>
+    </tabset>
   </div>
 </div>

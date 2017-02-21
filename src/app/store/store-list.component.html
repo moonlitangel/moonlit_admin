@@ -1,26 +1,25 @@
-<a class="nav-link" routerLinkActive="active" [routerLink]="['/store/register']"><i class="icon-speedometer"></i>등록<span class="badge badge-info">NEW</span></a>
-<div>
-  <div class="card">
-    <div class="card-block">
-      <table class="table table-bordered table-striped table-condensed" border="1">
-        <thead>
-          <tr>
-            <th>가게이름</th>
-            <th>주소</th>
-            <th>카테고리</th>
-            <th>삭제</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- 추가를 위한 입력 폼 -->
-          <tr *ngFor="let p of results; let i=index" routerLinkActive="active" [routerLink]="['/store', p.id]">
-            <td>{{p.name}}</td>
-            <td>{{p.addr}}</td>
-            <td>{{p.category}}</td>
-            <td>{{p.id}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+<button class="btn btn-primary" routerLinkActive="active" [routerLink]="['/store/register']">가게 등록</button>
+<div class="card">
+  <div class="card-header">가게 리스트</div>
+  <div class="card-block">
+    <table class="table table-bordered table-striped table-condensed" border="1">
+      <thead>
+        <tr>
+          <th>가게이름</th>
+          <th>주소</th>
+          <th>카테고리</th>
+          <th>삭제</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 추가를 위한 입력 폼 -->
+        <tr *ngFor="let p of results; let i=index" routerLinkActive="active" [routerLink]="['/store', p.id]">
+          <td>{{p.name}}</td>
+          <td>{{p.addr}}</td>
+          <td>{{p.category}}</td>
+          <td>{{p.id}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
