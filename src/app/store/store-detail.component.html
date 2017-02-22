@@ -8,12 +8,13 @@
     <label *ngIf="getData" class="btn-right mb-0">
       <button (click)="updatecancel()" class="btn btn-sm btn-warning">취소</button>
     </label>
-     
+
   </div>
   <div class="card-block">
     <div class="row">
       <div class="col-md-3">
-        <img *ngIf="!imguploader" class="img-responsive" width="100%" src="http://52.175.147.246:3002/api/imgs/{{model.imgs}}">
+        <img *ngIf="!imguploader && imgs" class="img-responsive" width="100%" src="http://52.175.147.246:3002/api/imgs/{{model.imgs}}">
+        <img *ngIf="!imguploader && !imgs" class="img-responsive" width="100%" src="https://dummyimage.com/600x400/000/fff&text=Store">
         <div *ngIf="imguploader">
           <img class="img-responsive" width="100%" src="{{imgurl}}">
           <input type="file" name="img-upload" ng2FileSelect [uploader]="uploader" />
@@ -37,38 +38,46 @@
             </div>
             <div class="form-group">
               <label for="tel">전화번호</label>
-              <input type="text" class="form-control" name="tel" [(ngModel)]="model.tel" placeholder="전화번호" #title="ngModel" [max]="11" />
+              <input type="text" class="form-control" name="tel" [(ngModel)]="model.tel" placeholder="전화번호" #title="ngModel" [max]="11"
+              />
             </div>
             <div class="form-group">
               <label for="category">카테고리</label>
-              <input type="text" class="form-control" name="category" [(ngModel)]="model.category" placeholder="카테고리" #category="ngModel" />
+              <input type="text" class="form-control" name="category" [(ngModel)]="model.category" placeholder="카테고리" #category="ngModel"
+              />
             </div>
             <div class="form-group row">
               <div class="form-group col-md-3">
                 <label for="time">평일 여는시간</label>
-                <input type="text" class="form-control" name="openTime" [(ngModel)]="model.openTime" placeholder="ex)08:00" #openTime="ngModel" />
+                <input type="text" class="form-control" name="openTime" [(ngModel)]="model.openTime" placeholder="ex)08:00" #openTime="ngModel"
+                />
               </div>
               <div class="form-group col-md-3">
                 <label for="time">평일 닫는시간</label>
-                <input type="text" class="form-control" name="closeTime" [(ngModel)]="model.closeTime" placeholder="ex)24:00" #closeTime="ngModel" />
+                <input type="text" class="form-control" name="closeTime" [(ngModel)]="model.closeTime" placeholder="ex)24:00" #closeTime="ngModel"
+                />
               </div>
               <div class="form-group col-md-3">
                 <label for="time">주말 여는시간</label>
-                <input type="text" class="form-control" name="weekendOpen" [(ngModel)]="model.weekendOpen" placeholder="ex)08:00" #weekendOpen="ngModel" />
+                <input type="text" class="form-control" name="weekendOpen" [(ngModel)]="model.weekendOpen" placeholder="ex)08:00" #weekendOpen="ngModel"
+                />
               </div>
               <div class="form-group col-md-3">
                 <label for="time">주말 닫는시간</label>
-                <input type="text" class="form-control" name="weekendClose" [(ngModel)]="model.weekendClose" placeholder="ex)24:00" #weekendClose="ngModel" />
+                <input type="text" class="form-control" name="weekendClose" [(ngModel)]="model.weekendClose" placeholder="ex)24:00" #weekendClose="ngModel"
+                />
               </div>
             </div>
             <div class="form-group row">
               <div class="form-group col-md-6">
                 <label for="coupon">쿠폰이름</label>
-                <input type="text" class="form-control" name="couponName" [(ngModel)]="model.couponName" placeholder="쿠폰이름" #couponName="ngModel" />
+                <input type="text" class="form-control" name="couponName" [(ngModel)]="model.couponName" placeholder="쿠폰이름" #couponName="ngModel"
+                />
               </div>
               <div class="form-group col-md-6">
                 <label for="coupon">쿠폰이름</label>
-                <input type="text" class="form-control" name="couponAmount" [(ngModel)]="model.couponAmount" placeholder="ex)1000" #couponAmount="ngModel" />
+                <input type="text" class="form-control" name="couponAmount" [(ngModel)]="model.couponAmount" placeholder="ex)1000" #couponAmount="ngModel"
+                />
               </div>
             </div>
             <div class="form-group">
@@ -78,7 +87,24 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="card-block">
     <tabset>
+      <tab heading="메뉴이미지등록">
+        <div class="col-md-12">
+          <img *ngIf="!menuuploader && imgsMenu" class="img-responsive" height="100%" src="http://52.175.147.246:3002/api/imgs/{{model.imgsMenu}}">
+          <img *ngIf="!menuuploader && !imgsMenu" class="img-responsive" height="100%" src="https://dummyimage.com/600x400/000/fff&text=Menu">
+          <div *ngIf="menuuploader">
+            <img class="img-responsive" height="100%" src="http://52.175.147.246:3002/api/imgs/{{model.imgsMenu}}">
+            <input type="file" name="img-upload" ng2FileSelect [uploader]="uploader" />
+          </div>
+          <div class="row">
+            <button *ngIf="!menuuploader" class="btn btn-primary" (click)="addimgsMenu()">사진 등록하기</button>
+            <button *ngIf="menuuploader" class="btn btn-primary" (click)="uploadFile()">사진 업로드</button>
+          </div>
+        </div>
+        <!--<app-sentence-table [step]="0"></app-sentence-table>-->
+      </tab>
       <tab heading="메뉴관리">
         <div class="col-md-12">
           메뉴관리 - 여기부터 탭으로 하는게 깔끔하고 사용이 편리할 것 같음. 메뉴 이미지수정도 가능하도록(2개를 분리시켜야 편할지도)
@@ -87,12 +113,29 @@
       </tab>
       <tab heading="지도">
         <div class="col-md-12">
+          <!--<div class="col-md-3">
+            <div class="row">
+              <div class="col">
+                <select class="form-control" id="power">
+                  <option *ngFor="let h of hour" [value]="h">{{h}}</option>
+                </select>.
+              </div>
+              <div class="col">
+                <select class="form-control" id="power">
+                  <option *ngFor="let m of min" [value]="m">{{m}}</option>
+                </select>
+              </div>
+            </div>
+          </div>-->
           지도-구글지도 api받아와서 현재 위치 보여주기....(이건 컴에서 어케 쓰는거지? 대략적 위치??)
         </div>
       </tab>
       <tab heading="댓글">
         <div class="col-md-12">
-          리뷰 댓글 (약 20개단위로 끊어서 보여주기)
+          <div class="row" *ngFor="let re of model.store_replies">
+            <div class="col-md-3">{{re.wdUserId}}</div>
+            <div class="col-md-9">{{re.content}}</div>
+          </div>
         </div>
       </tab>
     </tabset>

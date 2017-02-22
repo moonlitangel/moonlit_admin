@@ -46,7 +46,14 @@ export class StoreService {
 			})
 			.catch(this.handleError);
 	}
-
+	
+	deleteStore(id: number): Promise<void> {
+		const url = `${this.StoreUrl}/destroy/${id}`;
+		return this.http.delete(url, { headers: this.headers })
+			.toPromise()
+			.then(() => null)
+			.catch(this.handleError);
+	}
 
 	private handleError(error: any): Promise<any> {
 		console.error('An error occurred', error); // for demo purposes only

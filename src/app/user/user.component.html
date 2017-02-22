@@ -12,9 +12,9 @@
         </thead>
         <tbody>
           <!-- 추가를 위한 입력 폼 -->
-          <tr>
-            <td>테스트</td>
-            <td>테스트</td>
+          <tr *ngFor="let p of results; let i=index">
+            <td>{{p.user_login}}</td>
+            <td>{{p.user_nickname}}</td>
             <td>테스트</td>
             <td>테스트</td>
           </tr>

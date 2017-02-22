@@ -14,4 +14,12 @@ export class Store {
   lng: number;
   imgs: string;
   imgsMenu: string;
+  store_replies: [
+    {
+      id: number;
+      content: string;
+      star: number;
+      wdUserId: number;
+    }
+  ]
 }

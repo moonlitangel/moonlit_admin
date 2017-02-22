@@ -20,6 +20,23 @@ export class StoreListComponent implements OnInit {
       })
   }
 
+  deleteStore(Store: Store): void {
+		this.StoreService.deleteStore(Store.id)
+			.then(() => {
+				this.results = this.results.filter(h => h !== Store);
+			})
+	}
+
+  confirmDelete(Store: Store) :void {
+		var r = confirm("삭제하시겠습니까?");
+		if(r === true) {
+			this.deleteStore(Store);
+			console.log("삭제", Store);
+		} else {
+			console.log("취소");
+		}
+	}
+
   ngOnInit() {
     this.getAllStore();
   }
