@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+  <div class="col-md-6 menu">
+    <div class="row menu-header">
+      <div class="col-md-6 menu-vertical">메뉴이름</div>
+      <div class="col-md-4 menu-vertical">가격</div>
+      <div class="col-md-2">삭제</div>
+    </div>
+    <div *ngFor="let menu of results; let list = index">
+      <div class="row col-under card-header card-primary" *ngIf="list % 2 == 0">
+        <div class="col-md-6">{{menu.name}}</div>
+        <div class="col-md-4">{{menu.price}}</div>
+        <div class="col-md-2"><button class="btn btn-sm btn-danger">삭제</button></div>
+      </div>
+      <div class="row col-under card-header" *ngIf="list % 2 != 0">
+        <div class="col-md-6">{{menu.name}}</div>
+        <div class="col-md-4">{{menu.price}}</div>
+        <div class="col-md-2"><button class="btn btn-sm btn-danger">삭제</button></div>
+      </div>
+    </div>
+    <div class="row menu-top">
+      <div class="col-md-12">
+        <form name="form" (ngSubmit)="f.form.valid && add()" #f="ngForm" novalidate>
+          <div class="form-group row" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
+            <div class="col-md-5">
+              <label for="name">메뉴이름</label>
+              <input type="text" class="form-control" name="name" [(ngModel)]="model.name" #name="ngModel" required />
+            </div>
+            <div class="col-md-4">
+              <label for="price">가격</label>
+              <input type="text" class="form-control" name="addr" [(ngModel)]="model.price" #addr="ngModel" required />
+            </div>
+            <div class="col-md-3">
+              <button [disabled]="loading" class="btn btn-primary btn-down">생성하기</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

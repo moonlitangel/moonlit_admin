@@ -20,6 +20,7 @@ export class Store {
       content: string;
       star: number;
       wdUserId: number;
+      nick: string;
     }
   ]
 }

@@ -10,3 +10,27 @@
 .btn-right {
   float: right;
 }
+
+.btn-down {
+  position: absolute;
+  bottom: 0px;
+}
+
+.menu {
+  border: 1px solid #cfd8dc;
+  .under-bar {
+    
+  }
+  .menu-top {
+    margin-top: 8px;
+  }
+  .menu-header {
+    background-color: #fff;
+    padding: 0.75rem 1rem;
+  }
+  .menu-vertical {
+    border-right: 1px solid #cfd8dc;
+  }
+}
+
+

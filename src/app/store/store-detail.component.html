@@ -28,17 +28,18 @@
           <h3>전화번호 :{{model.tel}}</h3>
           <h3>카테고리: {{model.category}}</h3>
           <h3>평일 {{model.openTime}}~{{model.closeTime}} // 주말 {{model.weekendOpen}}~{{model.weekendClose}}</h3>
-          <h3>쿠폰 : {{model.couponAmount}}</h3>
+          <h3>쿠폰 : {{model.couponName}} - {{model.couponAmount}}</h3>
         </div>
         <div *ngIf="getData">
           <form name="form" (ngSubmit)="updateStore()" #f="ngForm" novalidate>
             <div class="form-group">
               <label for="addr">주소</label>
-              <input type="text" class="form-control" name="addr" [(ngModel)]="model.addr" placeholder="주소" #addr="ngModel" />
+              <daum-post [Addr]=model.addr (Address)="storeAddr($event)"></daum-post>
+              <input type="text" class="form-control" name="detail" [(ngModel)]="detail" placeholder="상세주소" />
             </div>
             <div class="form-group">
               <label for="tel">전화번호</label>
-              <input type="text" class="form-control" name="tel" [(ngModel)]="model.tel" placeholder="전화번호" #title="ngModel" [max]="11"
+              <input type="text" class="form-control" name="tel" [(ngModel)]="model.tel" placeholder="전화번호" #tel="ngModel" [max]="11"
               />
             </div>
             <div class="form-group">
@@ -81,7 +82,7 @@
               </div>
             </div>
             <div class="form-group">
-              <p><button [disabled]="loading" class="btn btn-primary btn-sm" (click)="test()">수정</button></p>
+              <p><button [disabled]="loading" class="btn btn-primary btn-sm" (click)="addPush(detail)">수정</button></p>
             </div>
           </form>
         </div>
@@ -103,12 +104,9 @@
             <button *ngIf="menuuploader" class="btn btn-primary" (click)="uploadFile()">사진 업로드</button>
           </div>
         </div>
-        <!--<app-sentence-table [step]="0"></app-sentence-table>-->
       </tab>
       <tab heading="메뉴관리">
-        <div class="col-md-12">
-          메뉴관리 - 여기부터 탭으로 하는게 깔끔하고 사용이 편리할 것 같음. 메뉴 이미지수정도 가능하도록(2개를 분리시켜야 편할지도)
-        </div>
+        <app-store-menu [store]="model.id"></app-store-menu>
         <!--<app-sentence-table [step]="0"></app-sentence-table>-->
       </tab>
       <tab heading="지도">
@@ -132,8 +130,11 @@
       </tab>
       <tab heading="댓글">
         <div class="col-md-12">
+          <div *ngIf="model.store_replies?.length == 0">
+            아직 등록된 댓글이 없어요!
+          </div>
           <div class="row" *ngFor="let re of model.store_replies">
-            <div class="col-md-3">{{re.wdUserId}}</div>
+            <div class="col-md-3">{{re.nick}}</div>
             <div class="col-md-9">{{re.content}}</div>
           </div>
         </div>
