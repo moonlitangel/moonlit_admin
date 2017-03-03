@@ -25,7 +25,7 @@ export class StoreDetailComponent implements OnInit {
   imgurl = 'http://52.175.147.246:3002/api/imgs/';
   imgs: string;
   imgsMenu: string;
-  detail: string;
+  detail: string = '';
   getData = false;
   hour = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'];
   min = ['00', '10', '20', '30', '40', '50'];
