@@ -13,17 +13,20 @@
         <nav class="sidebar-nav">
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/dashboard']"><i class="icon-speedometer"></i> Dashboard <span class="badge badge-info">NEW</span></a>
+                    <a class="nav-link" routerLinkActive="active" routerLink="/dashboard"><i class="icon-speedometer"></i> Dashboard <span class="badge badge-info">NEW</span></a>
                 </li>
                 <li class="divider"></li>
                 <li class="nav-title">
                     메뉴
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/user']"><i class="icon-speedometer"></i>유저정보<span class="badge badge-info">NEW</span></a>
+                <li class="nav-item" *ngIf="auth === '관리자'">
+                    <a class="nav-link" routerLinkActive="active" routerLink="/user"><i class="icon-speedometer"></i>유저정보<span class="badge badge-info">NEW</span></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="auth === '관리자'">
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/store/list']"><i class="icon-speedometer"></i>상점정보<span class="badge badge-info">NEW</span></a>
+                </li>
+                <li class="nav-item" *ngIf="auth === '가맹'">
+                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/store', storeId]"><i class="icon-speedometer"></i>상점정보<span class="badge badge-info">NEW</span></a>
                 </li>
             </ul>
         </nav>

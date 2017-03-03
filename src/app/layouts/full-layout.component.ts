@@ -11,6 +11,9 @@ export class FullLayoutComponent implements OnInit {
   public disabled:boolean = false;
   public status:{isopen:boolean} = {isopen: false};
 
+  public auth:string;
+  public storeId: string;
+
   public toggled(open:boolean):void {
     console.log('Dropdown is now: ', open);
   }
@@ -21,5 +24,8 @@ export class FullLayoutComponent implements OnInit {
     this.status.isopen = !this.status.isopen;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.auth = sessionStorage.getItem('currentAuth');
+    this.storeId = sessionStorage.getItem('currentStore');
+  }
 }

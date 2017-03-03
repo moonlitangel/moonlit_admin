@@ -80,6 +80,7 @@ export class StoreDetailComponent implements OnInit {
     this.StoreService.updateStore(this.model)
       .then(() => {
         this.getData = false;
+        this.detail = '';
         //console.log("성공");
       }).catch(() => console.log("실패"))
   }
