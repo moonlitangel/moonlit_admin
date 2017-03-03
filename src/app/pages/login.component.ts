@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
             .subscribe(
             data => {
                 if(data.auth === '관리자') {
-                    this.router.navigate(['/store/list']);
+                    this.router.navigate(['/dashboard']);
                 }
                 if(data.auth === '가맹') {
                     this.router.navigate(['/store', data.storeId]);
