@@ -3,7 +3,7 @@ import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { User } from './user';
-import { SimpleStore } from './SimpleStore'
+import { SimpleStore } from './simplestore'
 
 @Injectable()
 export class UserService {
