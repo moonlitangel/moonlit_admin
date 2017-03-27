@@ -17,6 +17,7 @@ export class Store {
   tags: any;
   storeImages: [
     {
+      id: number;
       img: string;
     }
   ];

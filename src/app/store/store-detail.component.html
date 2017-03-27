@@ -1,7 +1,7 @@
 <button class="btn btn-primary" routerLinkActive="active" [routerLink]="['/store/list']">리스트 보기</button>
 <div class="card">
   <div class="card-header">
-    {{model.name}}
+    {{model.name}} // {{model.createdAt | date: 'yyyy/MM/dd'}}
     <label *ngIf="!getData" class="btn-right mb-0">
       <button (click)="update()" class="btn btn-sm btn-primary">수정 하기</button>
     </label>
@@ -11,22 +11,41 @@
 
   </div>
   <div class="card-block">
-    <div class="row">
+    <div class="row justify-content-md-center">
+      <div class="col-md-3" *ngFor="let img of model.storeImages; let i = index">
+        <div>
+          <!--<input #file accept="image/*" type="file" name="img-upload" ng2FileSelect [uploader]="uploader" (change)="upload(file.files)" [hidden]=true/>
+          <button class="btn badge badge-success" #upload (click)="file.click()" (click)="addimgs()">수정</button>-->
+          <button class="btn badge badge-warning" (click)="confirmDeleteImg(img.id, i)">삭제</button>
+          <img *ngIf="imgs" class="img-responsive" height="200" width="100%" src="http://52.175.147.246:3005/api/imgs/{{img.img}}">
+        </div>
+      </div>
       <div class="col-md-3">
-        <img *ngIf="!imguploader && imgs" class="img-responsive" width="100%" src="http://52.175.147.246:3005/api/imgs/{{model.storeImages[0].img}}">
-        <img *ngIf="!imguploader && !imgs" class="img-responsive" width="100%" src="https://dummyimage.com/600x400/000/fff&text=Store">
         <div *ngIf="imguploader">
           <img class="img-responsive" width="100%" src="{{imgurl}}">
           <input type="file" name="img-upload" ng2FileSelect [uploader]="uploader" />
         </div>
-        <button *ngIf="!imguploader" class="btn btn-primary" (click)="addimgs()">사진 등록하기</button>
+        <button *ngIf="!imguploader" class="btn btn-primary" style="height: 200px; margin-top:20px" (click)="addimgs()">사진 등록하기</button>
         <button *ngIf="imguploader" class="btn btn-primary" (click)="uploadFile()">사진 업로드</button>
       </div>
+      <img *ngIf="!imguploader && !imgs" class="img-responsive" width="100%" src="https://dummyimage.com/600x400/000/fff&text=Store">
+    </div>
+    <div class="row justify-content-md-center">
+      <div *ngFor="let tag of model.tags; let i = index">
+        <span class="badge badge-pill badge-info" style="margin-left: 10px;margin-right: 10px">
+          {{tag.name}}
+          <button class="btn btn-sm btn-info" (click)="confirmDeleteTag(tag.id, i)">x</button>
+        </span>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-md-9">
         <div *ngIf="!getData">
+          {{model | json}}
           <h3>주소: {{model.addr}}</h3>
           <h3>전화번호 :{{model.tel}}</h3>
           <h3>카테고리: {{model.category}}</h3>
+          <h3>소개글: {{model.intro}}</h3>
           <!--<h3>평일 {{model.openTime}}~{{model.closeTime}} // 주말 {{model.weekendOpen}}~{{model.weekendClose}}</h3>
           <h3>쿠폰 : {{model.couponName}} - {{model.couponAmount}}</h3>-->
         </div>
@@ -34,8 +53,8 @@
           <form name="form" (ngSubmit)="updateStore()" #f="ngForm" novalidate>
             <div class="form-group">
               <label for="addr">주소</label>
-              <daum-post [Addr]=model.addr (Address)="storeAddr($event)"></daum-post>
-              <input type="text" class="form-control" name="detail" [(ngModel)]="detail" placeholder="상세주소" />
+              <!--<daum-post [Addr]=model.addr (Address)="storeAddr($event)"></daum-post>-->
+              <input type="text" class="form-control" name="detail" [(ngModel)]="model.addr" placeholder="장소를 적어주세요(ex: 전북대 구정문)" />
             </div>
             <div class="form-group">
               <label for="tel">전화번호</label>

@@ -76,7 +76,34 @@ export class StoreService {
 			})
 			.catch(this.handleError);
 	}
-	
+
+	updateImage(id: number, img: string): Promise<void> {
+		const url = `${this.StoreUrl}/updateimg`;
+		return this.http.put(url, JSON.stringify({id: id, img: img}), { headers: this.headers })
+			.toPromise()
+			.then(res => {
+				console.log(res);
+				res.json()
+			})
+			.catch(this.handleError);
+	}
+
+	deleteImage(id: number): Promise<void> {
+		const url = `${this.StoreUrl}/deleteimg/${id}`;
+		return this.http.delete(url, { headers: this.headers })
+			.toPromise()
+			.then(() => null)
+			.catch(this.handleError);
+	}
+
+	deleteTag(id: number): Promise<void> {
+		const url = `${this.StoreUrl}/deletetag/${id}`;
+		return this.http.delete(url, { headers: this.headers })
+			.toPromise()
+			.then(() => null)
+			.catch(this.handleError);
+	}
+
 	deleteStore(id: number): Promise<void> {
 		const url = `${this.StoreUrl}/destroy/${id}`;
 		return this.http.delete(url, { headers: this.headers })

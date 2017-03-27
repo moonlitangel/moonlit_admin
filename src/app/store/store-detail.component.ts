@@ -51,6 +51,20 @@ export class StoreDetailComponent implements OnInit {
       });
   }
 
+  deleteImg(id: number, index: number) {
+    this.StoreService.deleteImage(id)
+      .then(() => {
+        this.model.storeImages.splice(index, 1);
+      })
+  }
+
+  deleteTag(id: number, index: number) {
+    this.StoreService.deleteTag(id)
+      .then(() => {
+        this.model.tags.splice(index, 1);
+      })
+  }
+
   update() {
     this.getData = true;
   }
@@ -107,31 +121,6 @@ export class StoreDetailComponent implements OnInit {
       })
   }
 
-  exTime(Store: Store) {
-    if ( !Store.openTime && !Store.closeTime && !Store.weekendClose && !Store.weekendOpen ) {
-      this.model = Store;
-    } else {
-        this.model = Store;
-        this.model.openTime = Store.openTime.slice(0,5);
-        this.model.closeTime = Store.closeTime.slice(0,5);
-        this.model.weekendOpen = Store.weekendOpen.slice(0,5);
-        this.model.weekendClose = Store.weekendClose.slice(0,5);
-    }
-  }
-
-  // getNick(): void {
-  //   this.StoreService.getUserNick()
-  //     .then(results => {
-  //       this.nick = results;
-  //       for (var i in this.model.store_replies) {
-  //         var idx = this.nick.find((nick, idx) => {
-  //           return nick.id === this.model.store_replies[i].wdUserId;
-  //         });
-  //         this.model.store_replies[i].nick = idx.user_nickname;
-  //       }
-  //     })
-  // }
-
   private handleUploadComplete() {
     //console.log("upload compete : " + this.uploadResult.response);
     // if (this.uploadResult.success) {
@@ -151,6 +140,26 @@ export class StoreDetailComponent implements OnInit {
     //   //console.log('실패');
     // }
   }
+
+  confirmDeleteImg(id: number, index: number) :void {
+		var r = confirm("삭제하시겠습니까?");
+		if(r === true) {
+			this.deleteImg(id, index);
+			console.log("삭제");
+		} else {
+			console.log("취소");
+		}
+	}
+
+  confirmDeleteTag(id: number, index: number) :void {
+		var r = confirm("삭제하시겠습니까?");
+		if(r === true) {
+			this.deleteTag(id, index);
+			console.log("삭제");
+		} else {
+			console.log("취소");
+		}
+	}
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => this.getId = +params['id']);
