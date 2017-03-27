@@ -19,15 +19,15 @@
                 <li class="nav-title">
                     메뉴
                 </li>
-                <li class="nav-item" *ngIf="auth === '관리자'">
+                <li class="nav-item">
                     <a class="nav-link" routerLinkActive="active" routerLink="/user"><i class="icon-speedometer"></i>유저정보<span class="badge badge-info">NEW</span></a>
                 </li>
-                <li class="nav-item" *ngIf="auth === '관리자'">
+                <li class="nav-item">
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/store/list']"><i class="icon-speedometer"></i>상점정보<span class="badge badge-info">NEW</span></a>
                 </li>
-                <li class="nav-item" *ngIf="auth === '가맹'">
+                <!--<li class="nav-item" *ngIf="auth === '가맹'">
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/store', storeId]"><i class="icon-speedometer"></i>상점정보<span class="badge badge-info">NEW</span></a>
-                </li>
+                </li>-->
             </ul>
         </nav>
     </div>

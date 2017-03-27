@@ -7,7 +7,7 @@ import { Store } from './store';
 import { Nick } from './nick';
 import { StoreService } from './store.service';
 
-const URL = 'http://52.175.147.246:3002/api/upload';
+const URL = 'http://52.175.147.246:3005/api/upload';
 
 @Component({
   selector: 'app-store-detail',
@@ -22,13 +22,13 @@ export class StoreDetailComponent implements OnInit {
   getImg = false;
   imguploader = false;
   menuuploader = false;
-  imgurl = 'http://52.175.147.246:3002/api/imgs/';
-  imgs: string;
+  imgurl = 'http://52.175.147.246:3005/api/imgs/';
+  imgs: any;
   imgsMenu: string;
   detail: string = '';
   getData = false;
-  hour = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'];
-  min = ['00', '10', '20', '30', '40', '50'];
+  // hour = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'];
+  // min = ['00', '10', '20', '30', '40', '50'];
 
   uploadFile() {
     this.uploader.uploadAll(); // 업로드 시작
@@ -43,29 +43,12 @@ export class StoreDetailComponent implements OnInit {
     this.model.addr = this.model.addr + " " + detail;
   }
 
-  imgUpdate(type: string) {
-    let img = this.imgs;
-    let imgsMenu = this.imgsMenu;
-    if (type === 'imgs') {
-      if (img == this.model.imgs) { console.log("같음") }
-      if (img !== this.model.imgs) {
-        this.StoreService.updateStore(this.model)
-          .then(() => {
-            this.imguploader = false;
-            location.reload();
-          });
-      }
-    }
-    if (type === 'imgsMenu') {
-      if (imgsMenu == this.model.imgsMenu) { console.log("같음") }
-      if (imgsMenu !== this.model.imgsMenu) {
-        this.StoreService.updateStore(this.model)
-          .then(() => {
-            this.menuuploader = false;
-            location.reload();
-          });
-      }
-    }
+  imgUpdate() {
+    this.StoreService.updateStore(this.model)
+      .then(() => {
+        this.imguploader = false;
+        location.reload();
+      });
   }
 
   update() {
@@ -119,10 +102,8 @@ export class StoreDetailComponent implements OnInit {
   getStore(id: number): void {
     this.StoreService.getStore(id)
       .then(results => {
-        this.exTime(results);
-        this.imgs = results.imgs;
-        this.imgsMenu = results.imgsMenu;
-        this.getNick();
+        this.model = results;
+        this.imgs = results.storeImages.length;       
       })
   }
 
@@ -138,37 +119,37 @@ export class StoreDetailComponent implements OnInit {
     }
   }
 
-  getNick(): void {
-    this.StoreService.getUserNick()
-      .then(results => {
-        this.nick = results;
-        for (var i in this.model.store_replies) {
-          var idx = this.nick.find((nick, idx) => {
-            return nick.id === this.model.store_replies[i].wdUserId;
-          });
-          this.model.store_replies[i].nick = idx.user_nickname;
-        }
-      })
-  }
+  // getNick(): void {
+  //   this.StoreService.getUserNick()
+  //     .then(results => {
+  //       this.nick = results;
+  //       for (var i in this.model.store_replies) {
+  //         var idx = this.nick.find((nick, idx) => {
+  //           return nick.id === this.model.store_replies[i].wdUserId;
+  //         });
+  //         this.model.store_replies[i].nick = idx.user_nickname;
+  //       }
+  //     })
+  // }
 
   private handleUploadComplete() {
     //console.log("upload compete : " + this.uploadResult.response);
-    if (this.uploadResult.success) {
-      //console.log('성공');
-      this.imgurl = this.imgurl + this.uploadResult.response;
-      this.getImg = true;
-      if (this.imguploader) {
-        this.model.imgs = this.uploadResult.response;
-        this.imgUpdate('imgs');
-      }
-      if (this.menuuploader) {
-        this.model.imgsMenu = this.uploadResult.response;
-        this.imgUpdate('imgsMenu');
-      }
+    // if (this.uploadResult.success) {
+    //   //console.log('성공');
+    //   this.imgurl = this.imgurl + this.uploadResult.response;
+    //   this.getImg = true;
+    //   if (this.imguploader) {
+    //     this.model.imgs = this.uploadResult.response;
+    //     this.imgUpdate('imgs');
+    //   }
+    //   if (this.menuuploader) {
+    //     this.model.imgsMenu = this.uploadResult.response;
+    //     this.imgUpdate('imgsMenu');
+    //   }
       
-    } else {
-      //console.log('실패');
-    }
+    // } else {
+    //   //console.log('실패');
+    // }
   }
 
   ngOnInit() {

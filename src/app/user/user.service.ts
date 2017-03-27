@@ -8,11 +8,11 @@ import { SimpleStore } from './simplestore'
 @Injectable()
 export class UserService {
 	private headers = new Headers({ 'Content-Type': 'application/json' });
-	private UserUrl = 'http://52.175.147.246:3002/api/users';
+	private UserUrl = 'http://52.175.147.246:3005/api/users';
 	constructor(private http: Http) { }
 
 	getAllUser(): Promise<User[]> {
-		const url = `${this.UserUrl}/userauth`;
+		const url = `${this.UserUrl}`;
 		return this.http.get(url, { headers: this.headers })
 			.toPromise()
 			.then(response => response.json() as User[])
@@ -20,7 +20,7 @@ export class UserService {
 	}
 
 	getSimpleStore(): Promise<SimpleStore[]> {
-		const url = 'http://52.175.147.246:3002/api/stores/simple';
+		const url = 'http://52.175.147.246:3005/api/stores/simple';
 		return this.http.get(url, { headers: this.headers})
 			.toPromise()
 			.then(res => res.json() as SimpleStore[])

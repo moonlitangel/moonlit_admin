@@ -33,6 +33,7 @@ export class DashboardComponent implements OnInit {
     return rgba;
   }
 
+
   // events
   public chartClicked(e:any):void {
     console.log(e);

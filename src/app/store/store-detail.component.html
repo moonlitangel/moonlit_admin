@@ -13,7 +13,7 @@
   <div class="card-block">
     <div class="row">
       <div class="col-md-3">
-        <img *ngIf="!imguploader && imgs" class="img-responsive" width="100%" src="http://52.175.147.246:3002/api/imgs/{{model.imgs}}">
+        <img *ngIf="!imguploader && imgs" class="img-responsive" width="100%" src="http://52.175.147.246:3005/api/imgs/{{model.storeImages[0].img}}">
         <img *ngIf="!imguploader && !imgs" class="img-responsive" width="100%" src="https://dummyimage.com/600x400/000/fff&text=Store">
         <div *ngIf="imguploader">
           <img class="img-responsive" width="100%" src="{{imgurl}}">
@@ -27,8 +27,8 @@
           <h3>주소: {{model.addr}}</h3>
           <h3>전화번호 :{{model.tel}}</h3>
           <h3>카테고리: {{model.category}}</h3>
-          <h3>평일 {{model.openTime}}~{{model.closeTime}} // 주말 {{model.weekendOpen}}~{{model.weekendClose}}</h3>
-          <h3>쿠폰 : {{model.couponName}} - {{model.couponAmount}}</h3>
+          <!--<h3>평일 {{model.openTime}}~{{model.closeTime}} // 주말 {{model.weekendOpen}}~{{model.weekendClose}}</h3>
+          <h3>쿠폰 : {{model.couponName}} - {{model.couponAmount}}</h3>-->
         </div>
         <div *ngIf="getData">
           <form name="form" (ngSubmit)="updateStore()" #f="ngForm" novalidate>
@@ -47,7 +47,7 @@
               <input type="text" class="form-control" name="category" [(ngModel)]="model.category" placeholder="카테고리" #category="ngModel"
               />
             </div>
-            <div class="form-group row">
+            <!--<div class="form-group row">
               <div class="form-group col-md-3">
                 <label for="time">평일 여는시간</label>
                 <input type="text" class="form-control" name="openTime" [(ngModel)]="model.openTime" placeholder="ex)08:00" #openTime="ngModel"
@@ -80,7 +80,7 @@
                 <input type="text" class="form-control" name="couponAmount" [(ngModel)]="model.couponAmount" placeholder="ex)1000" #couponAmount="ngModel"
                 />
               </div>
-            </div>
+            </div>-->
             <div class="form-group">
               <p><button [disabled]="loading" class="btn btn-primary btn-sm" (click)="addPush(detail)">수정</button></p>
             </div>
@@ -89,7 +89,7 @@
       </div>
     </div>
   </div>
-  <div class="card-block">
+  <!--<div class="card-block">
     <tabset>
       <tab heading="메뉴이미지등록">
         <div class="col-md-12">
@@ -125,5 +125,5 @@
         </div>
       </tab>
     </tabset>
-  </div>
+  </div>-->
 </div>

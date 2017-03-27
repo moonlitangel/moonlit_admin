@@ -25,7 +25,7 @@ export class FullLayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.auth = sessionStorage.getItem('currentAuth');
-    this.storeId = sessionStorage.getItem('currentStore');
+    // this.auth = sessionStorage.getItem('currentAuth');
+    // this.storeId = sessionStorage.getItem('currentStore');
   }
 }

@@ -4,6 +4,7 @@ export class Store {
   addr: string;
   tel: string;
   category: string;
+  intro: string;
   openTime: string;
   closeTime: string;
   weekendOpen: string;
@@ -12,15 +13,11 @@ export class Store {
   couponAmount: number;
   lat: number;
   lng: number;
-  imgs: string;
-  imgsMenu: string;
-  store_replies: [
+  images: string[] = [];
+  tags: any;
+  storeImages: [
     {
-      id: number;
-      content: string;
-      star: number;
-      wdUserId: number;
-      nick: string;
+      img: string;
     }
-  ]
+  ];
 }

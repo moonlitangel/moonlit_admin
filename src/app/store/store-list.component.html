@@ -5,6 +5,7 @@
     <table class="table table-bordered table-striped table-condensed" border="1">
       <thead>
         <tr>
+          <th>ID</th>
           <th>가게이름</th>
           <th>주소</th>
           <th>카테고리</th>
@@ -14,6 +15,7 @@
       <tbody>
         <!-- 추가를 위한 입력 폼 -->
         <tr *ngFor="let p of results; let i=index" routerLinkActive="active" [routerLink]="['/store', p.id]">
+          <td>{{p.id}}</td>
           <td>{{p.name}}</td>
           <td>{{p.addr}}</td>
           <td>{{p.category}}</td>

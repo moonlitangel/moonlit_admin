@@ -9,9 +9,9 @@ import { Menu } from './menu';
 @Injectable()
 export class StoreService {
 	private headers = new Headers({ 'Content-Type': 'application/json' });
-	private StoreUrl = 'http://52.175.147.246:3002/api/stores';
-	private NickUrl = 'http://52.175.147.246:3002/api/users/nick';
-	private MenuUrl = 'http://52.175.147.246:3002/api/menu'
+	private StoreUrl = 'http://52.175.147.246:3005/api/stores';
+	private NickUrl = 'http://52.175.147.246:3005/api/users/nick';
+	private MenuUrl = 'http://52.175.147.246:3005/api/menu'
 	constructor(private http: Http) { }
 
 	getAllStore(): Promise<Store[]> {
@@ -36,9 +36,28 @@ export class StoreService {
 			.catch(this.handleError);
 	}
 
-	createStore(Store: Store): Promise<void> {
+	createStore(Store: Store): Promise<any> {
 		const url = `${this.StoreUrl}/create`;
 		return this.http.post(url, Store, { headers: this.headers })
+			.toPromise()
+			.then(res => res.json())
+			.catch(this.handleError);
+	}
+
+	createImage(store: number, img: string): Promise<void> {
+		const url = `${this.StoreUrl}/createimg`;
+		return this.http.post(url, { storeId: store, img: img }, { headers: this.headers })
+			.toPromise()
+			.then(res => {
+				console.log(res);
+				res.json()
+			})
+			.catch(this.handleError);
+	}
+
+	createTag(store: number, tag: string): Promise<void> {
+		const url = `${this.StoreUrl}/createtag`;
+		return this.http.post(url, { storeId: store, name: tag }, { headers: this.headers })
 			.toPromise()
 			.then(res => {
 				console.log(res);

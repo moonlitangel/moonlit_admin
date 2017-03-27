@@ -32,31 +32,6 @@ export class UserComponent implements OnInit {
       });
   };
 
-  onChange(value) {
-    console.log(value);
-    this.model.storeId = value;
-  }
-
-  updateAuth(user) {
-    this.model.id = user.id;
-    this.model.auth = '가맹';
-    this.state = user.id;
-    this.model.storeId = user.storeId;
-  }
-  closeAuth(user) {
-    console.log(this.model);
-    this.state = 'init';
-    this.model = new User;
-  }
-
-  update(): void {
-    this.UserService.updateAuthUser(this.model)
-      .then(() => {
-        this.closeAuth(this.model);
-        this.getAllUser();
-      })
-  }
-
   ngOnInit() {
     this.getAllUser();
     this.getSimpleStore();

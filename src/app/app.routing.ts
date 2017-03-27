@@ -13,11 +13,11 @@ export const routes: Routes = [
     redirectTo: 'dashboard',
     pathMatch: 'full',
   },
-  { path: 'login', component: LoginComponent },
+  // { path: 'login', component: LoginComponent },
   {
     path: '',
     component: FullLayoutComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     data: {
       title: 'Home'
     },
@@ -29,7 +29,7 @@ export const routes: Routes = [
       {
         path: 'user',
         loadChildren: './user/user.module#UserModule',
-        canActivate: [UserGuard],
+        // canActivate: [UserGuard],
       },
       {
         path: 'store',
