@@ -35,6 +35,10 @@ export const routes: Routes = [
         path: 'store',
         loadChildren: './store/store.module#StoreModule'
       },
+      {
+        path: 'post',
+        loadChildren: './post/post.module#PostModule'
+      },
     ]
   }
 ];
