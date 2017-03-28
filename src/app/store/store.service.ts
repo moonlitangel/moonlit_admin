@@ -104,6 +104,17 @@ export class StoreService {
 			.catch(this.handleError);
 	}
 
+	updateTag(id: number, tag: string): Promise<void> {
+		const url = `${this.StoreUrl}/updatetag`;
+		return this.http.put(url, JSON.stringify({id: id, name: tag}), { headers: this.headers })
+			.toPromise()
+			.then(res => {
+				console.log(res);
+				res.json()
+			})
+			.catch(this.handleError);
+	}
+
 	deleteStore(id: number): Promise<void> {
 		const url = `${this.StoreUrl}/destroy/${id}`;
 		return this.http.delete(url, { headers: this.headers })

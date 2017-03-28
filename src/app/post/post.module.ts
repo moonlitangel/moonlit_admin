@@ -17,6 +17,7 @@ import { PostService } from './post.service';
     CommonModule,
     FormsModule
   ],
-  declarations: [ PostComponent ]
+  declarations: [ PostComponent ],
+  providers: [PostService]
 })
 export class PostModule { }

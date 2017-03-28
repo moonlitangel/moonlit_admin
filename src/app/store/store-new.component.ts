@@ -19,6 +19,7 @@ export class StoreNewComponent implements OnInit {
 	getImg = false;
 	imgurl = 'http://52.175.147.246:3005/imgs/';
   imguploader = false;
+  getCategory: string;
 
   constructor(
     private StoreService: StoreService,
@@ -54,6 +55,10 @@ export class StoreNewComponent implements OnInit {
 			}).then(() => {
         this.router.navigate(['/store/list']);
       })
+	}
+
+  changeCategory(category) {
+		this.getCategory = category;
 	}
 
   createTag(store: number, tag: Array<any>) {

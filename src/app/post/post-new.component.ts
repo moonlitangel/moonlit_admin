@@ -4,10 +4,10 @@ import { Post } from './post';
 import { PostService } from './post.service';
 
 @Component({
-  selector: 'app-post',
-  templateUrl: './post.component.html'
+  selector: 'app-post-new',
+  templateUrl: './post-new.component.html'
 })
-export class PostComponent implements OnInit {
+export class PostNewComponent implements OnInit {
   model: Post[];
 
   constructor(private PostService: PostService) { }

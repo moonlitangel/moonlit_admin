@@ -11,14 +11,15 @@
 
   </div>
   <div class="card-block">
-    <div class="row justify-content-md-center">
+    <div class="row justify-content-md-center" style="padding-bottom: 20px">
       <div class="col-md-3" *ngIf="!imguploader && !imgs">
         <img class="img-responsive" height="200" style="margin-top: 20px" width="100%" src="https://dummyimage.com/600x400/000/fff&text=Store">
       </div>
       <div class="col-md-3" *ngFor="let img of model.storeImages; let i = index">
         <div>
-          <!--<input #file accept="image/*" type="file" name="img-upload" ng2FileSelect [uploader]="uploader" (change)="upload(file.files)" [hidden]=true/>
-          <button class="btn badge badge-success" #upload (click)="file.click()" (click)="addimgs()">수정</button>-->
+          <input #file accept="image/*" type="file" name="img-upload" ng2FileSelect [uploader]="uploader" [hidden]=true/>
+          <button *ngIf="!updateuploader" class="btn badge badge-success" #upload (click)="file.click();updateimg()">수정</button>
+          <button *ngIf="updateuploader" class="btn btn-primary" (click)="updateFile(img.id)">사진 업로드</button>
           <button class="btn badge badge-warning" (click)="confirmDeleteImg(img.id, i)">삭제</button>
           <img *ngIf="imgs" class="img-responsive" height="200" width="100%" src="http://52.175.147.246:3005/api/imgs/{{img.img}}">
         </div>
@@ -32,11 +33,21 @@
         <button *ngIf="imguploader" class="btn btn-primary" (click)="uploadFile()">사진 업로드</button>
       </div>
     </div>
-    <div class="row justify-content-md-center">
+    <div class="row justify-content-md-center" style="padding-bottom: 20px">
       <div *ngFor="let tag of model.tags; let i = index">
-        <span class="badge badge-pill badge-info" style="margin-left: 10px;margin-right: 10px">
-          {{tag.name}}
-          <button class="btn btn-sm btn-info" (click)="confirmDeleteTag(tag.id, i)">x</button>
+          <div class="input-group" style="width: 180px;margin-right:10px">
+            <input type="text" class="form-control" [(ngModel)]="tag.name"/>
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-sm btn-primary" (click)="confirmUpdateTag(tag.id, tag.name);">수정</button>
+              <button type="button" class="btn btn-sm btn-info" (click)="confirmDeleteTag(tag.id, i)">x</button>
+            </span>
+          </div>
+      </div>
+      <button *ngIf="!newTag" class="btn badge badge-pill badge-info" (click)="addTag();">태그 추가</button>
+      <div class="input-group" style="width: 150px" *ngIf="newTag">
+        <input type="text" class="form-control" name="tag" [(ngModel)]="tagName" #tag="ngModel" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-primary" (click)="createTag();">생성</button>
         </span>
       </div>
     </div>
@@ -60,13 +71,15 @@
             </div>
             <div class="form-group">
               <label for="tel">전화번호</label>
-              <input type="text" class="form-control" name="tel" [(ngModel)]="model.tel" placeholder="전화번호" #tel="ngModel" [max]="11"
-              />
+              <input type="text" class="form-control" name="tel" [(ngModel)]="model.tel" placeholder="전화번호" #tel="ngModel" [max]="13" />
             </div>
             <div class="form-group">
               <label for="category">카테고리</label>
-              <input type="text" class="form-control" name="category" [(ngModel)]="model.category" placeholder="카테고리" #category="ngModel"
-              />
+              <select class="form-control" [(ngModel)]="model.category" #category="ngModel" required name="category" (change)="changeCategory($event.target.value)">
+                <option value="밥">밥</option>
+                <option value="술">술</option>
+                <option value="디저트">디저트</option>
+              </select>
             </div>
             <div class="form-group">
               <label for="intro">소개글</label>
