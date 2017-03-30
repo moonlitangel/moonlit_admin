@@ -31,6 +31,10 @@ export class PostComponent implements OnInit {
 			})
 	}
 
+  closeSubmit(): void{
+		this.getData = '';
+	}
+
   deletePost(Post: Post) {
     this.PostService.deletePost(Post.id)
       .then(() => this.results = this.results.filter(h => h !== Post))
