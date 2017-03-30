@@ -1,5 +1,17 @@
 <button class="btn btn-primary" routerLinkActive="active" [routerLink]="['/store/list']">리스트 보기</button>
 <div class="card">
+  <div class="card-header">사용방법</div>
+  <div class="card-block">
+    <p>이미지 수정 : 이미지위의 수정버튼 클릭 - 이미지 선택 - 업로드 - 수정 완료</p>
+    <p>이미지 삭제 : 이미지위의 삭제버튼 클릭</p>
+    <p>이미지 추가 : 이미지 옆의 사진등록하기 버튼 클릭 - 파일선택버튼 - 파일선택 - 업로드</p>
+    <p>태그 수정 : 태그 내용 수정 후 수정버튼 클릭</p>
+    <p>태그 삭제 : 태그 옆 X버튼 클릭</p>
+    <p>태그 추가 : 태그 추가 - 내용 입력 - 생성</p>
+    <p>가게 정보 수정 : 우측 상단의 수정하기 버튼 누르면 수정가능합니다.</p>
+  </div>
+</div>
+<div class="card">
   <div class="card-header">
     {{model.name}} // {{model.createdAt | date: 'yyyy/MM/dd'}}
     <label *ngIf="!getData" class="btn-right mb-0">
@@ -54,11 +66,10 @@
     <div class="row">
       <div class="col-md-9">
         <div *ngIf="!getData">
-          {{model | json}}
           <h3>주소: {{model.addr}}</h3>
           <h3>전화번호 :{{model.tel}}</h3>
           <h3>카테고리: {{model.category}}</h3>
-          <h3>소개글: {{model.intro}}</h3>
+          <h3>소개글: <p [innerHtml]="model.intro"></p></h3>
           <!--<h3>평일 {{model.openTime}}~{{model.closeTime}} // 주말 {{model.weekendOpen}}~{{model.weekendClose}}</h3>
           <h3>쿠폰 : {{model.couponName}} - {{model.couponAmount}}</h3>-->
         </div>
