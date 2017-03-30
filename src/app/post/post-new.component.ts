@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Post } from './post';
 import { PostService } from './post.service';
@@ -8,14 +9,20 @@ import { PostService } from './post.service';
   templateUrl: './post-new.component.html'
 })
 export class PostNewComponent implements OnInit {
-  model: Post[];
+  model = new Post;
 
-  constructor(private PostService: PostService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private PostService: PostService) { }
 
-  
+  add() {
+    this.PostService.createPost(this.model)
+      .then(() => this.router.navigate(['/post/list']));
+  }
 
   ngOnInit() {
-    this.PostService.getPosts().then((results) => this.model = results);
+    
   }
 
 }

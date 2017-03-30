@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { PostComponent } from './post.component';
+import { PostNewComponent } from './post-new.component';
 import { PostRoutingModule } from './post-routing.module';
 import { PostService } from './post.service';
 
@@ -17,7 +18,7 @@ import { PostService } from './post.service';
     CommonModule,
     FormsModule
   ],
-  declarations: [ PostComponent ],
+  declarations: [ PostComponent, PostNewComponent ],
   providers: [PostService]
 })
 export class PostModule { }

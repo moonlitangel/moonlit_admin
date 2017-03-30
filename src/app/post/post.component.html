@@ -1,2 +1,66 @@
-<p>Post</p>
-<p *ngFor="let post of model">{{post.title}} : {{post.content}} : {{post.category}}</p>
+<button class="btn btn-primary" routerLinkActive="active" [routerLink]="['/post/register']">포스트 등록</button>
+<div class="card">
+  <div class="card-header">포스트 리스트</div>
+  <div class="card-block">
+    <table class="table table-bordered table-striped table-condensed" border="1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>포스트 제목</th>
+          <th>내용</th>
+          <th>카테고리</th>
+          <th>수정</th>
+          <th>삭제</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 추가를 위한 입력 폼 -->
+        <tr *ngFor="let p of results; let i=index">
+          <td *ngIf="p.id === getData" colspan="100%">
+            <form name="form" (ngSubmit)="updatePost()" #f="ngForm" novalidate>
+              <!--<div class="col-md-3">
+                <label for="img">이미지</label><a class="btn btn-primary btn-sm btn-right" *ngIf="getImg" (click)="changeImg()">이미지수정</a>
+                <img class="img-responsive" height="150" *ngIf="p.img != null && getImg" src="http://52.175.147.246:3000/imgs/{{model.img}}">
+                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
+                  <div *ngIf="!getImg">
+                    <label for="img-upload">이미지 업로드</label>
+                    <input type="file" name="img-upload" ng2FileSelect [uploader]="uploader" />
+                    <a class="btn btn-success btn-sm" (click)="uploadFile()">
+                      <span class="glyphicon glyphicon-upload"></span> 올리기
+                    </a>
+                  </div>
+                </div>
+              </div>-->
+              <div class="form-group col-md-6">
+                <label for="category">카테고리</label>
+                <select class="form-control" [(ngModel)]="model.category" #category="ngModel" required	name="category" (change)="changeCategory($event.target.value)">
+                  <option value="notice">notice</option>
+                  <option value="event">event</option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="title">제목</label>
+                <input type="text" class="form-control" name="title" [(ngModel)]="model.title" placeholder="제목" #title="ngModel" required
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="content">내용</label>
+                <textarea class="form-control" name="content" [(ngModel)]="model.content" #content="ngModel" required></textarea>
+              </div>
+              <div class="form-group col-md-1">
+                <p><button [disabled]="loading" class="btn btn-primary btn-sm">수정</button></p>
+              </div>
+            </form>
+            <p><button [disabled]="loading" (click)="closeSubmit()" class="btn btn-primary btn-sm">닫기</button></p>
+          </td>
+          <td *ngIf="p.id !== getData">{{p.id}}</td>
+          <td *ngIf="p.id !== getData">{{p.title}}</td>
+          <td *ngIf="p.id !== getData">{{p.content}}</td>
+          <td *ngIf="p.id !== getData">{{p.category}}</td>
+          <td *ngIf="p.id !== getData"><button class="btn btn-sm btn-info" (click)="getPost(p.id); $event.stopPropagation()">수정</button></td>
+          <td *ngIf="p.id !== getData"><button class="btn btn-sm btn-danger" (click)="confirmDelete(p); $event.stopPropagation()">삭제</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
