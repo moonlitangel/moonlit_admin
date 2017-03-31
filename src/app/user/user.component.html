@@ -4,27 +4,15 @@
       <table class="table table-bordered table-striped table-condensed" border="1">
         <thead>
           <tr>
-            <th width="20%">이름</th>
-            <th width="20%">닉네임</th>
-            <th width="20%">권한</th>
-            <th width="20%">상점</th>
-            <th width="20%">권한부여</th>
+            <th>기기고유번호</th>
+            <th>닉네임</th>
           </tr>
         </thead>
         <tbody>
           <!-- 추가를 위한 입력 폼 -->
           <tr *ngFor="let p of results; let i=index">
-            <td *ngIf="p.id !== state" colspan="4">
-              <div class="row">
-                <div class="col">{{p.user_login}}</div>
-                <div class="col">{{p.user_nickname ? p.user_nickname : '없음'}}</div>
-                <div class="col">없음</div>
-                <div class="col">{{p.store ? p.store.name : '없음'}}</div>
-              </div>
-            <td>
-              <button *ngIf="p.id !== state" class="btn btn-primary" (click)="updateAuth(p)">수정</button>
-              <button *ngIf="p.id === state" class="btn btn-primary" (click)="closeAuth(p)">닫기</button>
-            </td>
+            <td>{{p.user_login}}</td>
+            <td>{{p.user_nickname ? p.user_nickname : '없음'}}</td>
           </tr>
         </tbody>
       </table>
