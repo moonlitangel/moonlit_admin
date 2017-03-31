@@ -1,0 +1,11 @@
+<div class="card">
+  <div class="card-header">포스트 리스트</div>
+  <div class="card-block">
+    <div *ngFor="let img of images">
+      <img class="img-responsive" width="50%" src="http://52.175.147.246:3005/api/imgs/{{img}}">
+      <h3>링크 : http://52.175.147.246:3005/api/imgs/{{img}}</h3>
+    </div>
+    <input type="file" name="img-upload" ng2FileSelect [uploader]="uploader" multiple/>
+  </div>
+  <button class="btn btn-primary" (click)="uploadFile()">사진 업로드</button>
+</div>

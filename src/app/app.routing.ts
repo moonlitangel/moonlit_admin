@@ -39,6 +39,10 @@ export const routes: Routes = [
         path: 'post',
         loadChildren: './post/post.module#PostModule'
       },
+      {
+        path: 'image',
+        loadChildren: './image/image.module#ImageModule'
+      }
     ]
   }
 ];
