@@ -5,6 +5,18 @@ import { Router } from '@angular/router';
   templateUrl: 'dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
+  address: string = '주소';
+  daumAddressOptions =  {
+    class: ['btn', 'btn-primary'],
+    type: "layer",
+    target: "layer" 
+  };
+
+  setDaumAddressApi(data: any){
+    this.address = data.addr;
+    // 여기로 주소값이 반환
+    console.log(data, this.address);
+  }
 
   constructor( ) { }
 
@@ -20,7 +32,7 @@ export class DashboardComponent implements OnInit {
     $event.preventDefault();
     $event.stopPropagation();
     this.status.isopen = !this.status.isopen;
-  }
+  }  
 
   //convert Hex to RGBA
   public convertHex(hex:string,opacity:number){

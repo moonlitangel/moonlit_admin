@@ -32,6 +32,7 @@ export class ImageComponent implements OnInit {
       this.handleUploadComplete();
     }
     this.uploader.onCompleteAll = () => {
+      this.getImg = true;
     };
   }
 
@@ -44,7 +45,6 @@ export class ImageComponent implements OnInit {
     if (this.uploadResult.success) {
       console.log('성공');
       // this.imgurl = this.imgurl + this.uploadResult.response;
-      this.getImg = true;
       this.images.push(this.uploadResult.response);
     } else {
       console.log('실패');

@@ -42,6 +42,7 @@ export class StoreNewComponent implements OnInit {
         this.handleUploadComplete();
       }
       this.uploader.onCompleteAll = () => {
+        this.getImg = true;
       };
     }
 
@@ -93,7 +94,6 @@ export class StoreNewComponent implements OnInit {
       if (this.uploadResult.success) {
         console.log('성공');
         // this.imgurl = this.imgurl + this.uploadResult.response;
-        this.getImg = true;
         this.model.images.push(this.uploadResult.response);
       } else {
         console.log('실패');
