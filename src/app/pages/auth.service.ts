@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map'
 
 @Injectable()
 export class AuthService {
-  private LoginUrl = 'http://52.175.147.246:3002/api/users/login';
+  private LoginUrl = 'http://52.175.147.246:3000/api/auth';
   private headers = new Headers({ 'Content-Type': 'application/json' });
   constructor(private http: Http) { }
 
@@ -17,8 +17,6 @@ export class AuthService {
         if (user) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           sessionStorage.setItem('currentUser', user.access_token);
-          sessionStorage.setItem('currentAuth', user.auth);
-          sessionStorage.setItem('currentStore', user.storeId);
           return user;
         }
       });
