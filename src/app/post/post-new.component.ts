@@ -15,7 +15,6 @@ export class PostNewComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private PostService: PostService) { 
-      console.log(this.model);
     }
 
   add() {
